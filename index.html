@@ -25,10 +25,27 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, var(--cream) 0%, #f0e6ff 50%, var(--cream) 100%);
+            background: linear-gradient(135deg, #9b59b6 0%, #d7bde2 25%, #e8d5f2 50%, #d7bde2 75%, #9b59b6 100%);
             color: var(--text-dark);
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 40% 40%, rgba(212,175,55,0.05) 2px, transparent 2px);
+            background-size: 80px 80px, 100px 100px, 150px 150px;
+            pointer-events: none;
+            z-index: 0;
         }
 
         audio { display: none; }
@@ -64,7 +81,7 @@
             position: fixed;
             width: 40px;
             height: 40px;
-            opacity: 0.8;
+            opacity: 0.7;
             pointer-events: none;
             z-index: 2;
             animation: flutter 6s ease-in-out infinite;
@@ -83,28 +100,6 @@
             75% { transform: translateY(-20px) rotate(5deg); }
         }
 
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle::before {
-            content: '';
-            display: block;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--gold);
-            animation: float-up 4s ease-out forwards;
-        }
-
-        @keyframes float-up {
-            0% { opacity: 1; transform: translateY(0) translateX(0); }
-            100% { opacity: 0; transform: translateY(-100px) translateX(20px); }
-        }
-
         .portada {
             position: relative;
             min-height: 100vh;
@@ -117,16 +112,6 @@
             padding: 40px 20px;
         }
 
-        .portada-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-            z-index: 0;
-        }
-
         .portada-content {
             position: relative;
             z-index: 11;
@@ -137,37 +122,39 @@
             gap: 30px;
         }
 
+        .logo-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInDown 1s ease;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         .titulo-principal {
             font-size: 3.5rem;
-            color: var(--dark-purple);
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            color: white;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.3);
             font-weight: bold;
             margin: 30px 0;
             animation: fadeIn 1s ease;
-        }
-
-        .subtitulo {
-            font-size: 1.5rem;
-            color: var(--gold);
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-
-        .fecha-evento {
-            font-size: 1.3rem;
-            color: var(--dark-purple);
-            font-weight: bold;
-            background: rgba(212, 175, 55, 0.2);
-            padding: 15px 30px;
-            border-radius: 30px;
-            border: 2px solid var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .seccion {
             padding: 80px 20px;
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             margin: 20px 0;
             border-radius: 20px;
             backdrop-filter: blur(10px);
@@ -544,6 +531,11 @@
             to { opacity: 1; }
         }
 
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .toast {
             position: fixed;
             bottom: 100px;
@@ -569,6 +561,7 @@
 
         @media (max-width: 768px) {
             .titulo-principal { font-size: 2rem; }
+            .logo-container { width: 200px; height: 200px; }
             .seccion-titulo { font-size: 1.8rem; }
             .info-evento { grid-template-columns: 1fr; }
             .cronometro { grid-template-columns: repeat(2, 1fr); }
@@ -586,11 +579,11 @@
     <div class="control-musica" id="musicControl" title="Activar/Desactivar música">🎵</div>
 
     <section class="portada" id="portada">
-        <div class="portada-bg"></div>
         <div class="portada-content">
-            <h1 class="titulo-principal">Mis XV Años</h1>
-            <p class="subtitulo">Melanie Oriana</p>
-            <div class="fecha-evento">🌟 24 de Octubre de 2026 🌟</div>
+            <div class="logo-container">
+                <img src="images/LOGO.png" alt="Mis XV Años Melanie">
+            </div>
+            <h1 class="titulo-principal">¡Bienvenido!</h1>
         </div>
     </section>
 
@@ -780,17 +773,6 @@
         }
 
         setInterval(createButterfly, 2000);
-
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = window.innerHeight + 'px';
-            document.body.appendChild(particle);
-            setTimeout(() => particle.remove(), 4000);
-        }
-
-        setInterval(createParticle, 500);
 
         function guardarMensaje() {
             const nombre = document.getElementById('nombreMensaje').value.trim();
