@@ -93,7 +93,7 @@
         .animated-element {
             position: fixed;
             pointer-events: none;
-            z-index: 3;
+            z-index: 12;
             font-size: 60px;
             opacity: 0.7;
         }
@@ -125,7 +125,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow: visible;
             z-index: 10;
             padding: 40px 20px;
         }
@@ -142,26 +142,28 @@
 
         .logo-frame {
             position: relative;
-            width: clamp(450px, 95vw, 700px);
-            height: clamp(450px, 95vw, 700px);
+            width: clamp(380px, 85vw, 580px);
+            height: clamp(380px, 85vw, 580px);
             background: url('images/descarga.png') center/contain no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             animation: fadeInDown 1s ease;
             filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            z-index: 13;
         }
 
         .logo-container {
             position: absolute;
-            width: 70%;
-            height: 70%;
+            width: 68%;
+            height: 68%;
             display: flex;
             align-items: center;
             justify-content: center;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            z-index: 14;
         }
 
         .logo-container img {
@@ -179,6 +181,8 @@
             animation: fadeIn 1s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
+            position: relative;
+            z-index: 11;
         }
 
         .seccion {
@@ -229,6 +233,7 @@
             transition: transform 0.3s ease;
             cursor: pointer;
             aspect-ratio: 3/4;
+            z-index: 5;
         }
 
         .foto-card-frame {
@@ -237,7 +242,7 @@
             height: 100%;
             background: url('images/Marcos_fotos.jpg') center/cover;
             border-radius: 15px;
-            z-index: 3;
+            z-index: 6;
             pointer-events: none;
         }
 
@@ -763,7 +768,7 @@
                 <p><a href="https://maps.app.goo.gl/rJxeqtSAPamEYcCZ6" target="_blank" style="color: var(--primary-purple); text-decoration: none; font-weight: bold;">Ver en Google Maps →</a></p>
             </div>
             <div class="mapa-container">
-                <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.2!2d-58.7538!3d-34.5045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb9c5a7a7a7a7%3A0x5a5a5a5a5a5a5a5a!2sJos%C3%A9%20C%20Paz%2C%20Copello%20980!5e0!3m2!1ses!2sar!4v1695217800000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.7893!2d-58.76150848095474!3d-34.51328155202887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca3c5c5c5c5c5%3A0x5a5a5a5a5a5a5a5a!2sBoom%20eventos!5e0!3m2!1ses!2sar!4v1695217800000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
