@@ -99,22 +99,23 @@
         }
 
         .sticker-anim {
-            animation: sticker-float 40s infinite ease-in-out;
+            animation: sticker-float 70s infinite linear;
         }
 
         @keyframes sticker-float {
             0% { transform: translateX(-20vw) translateY(-20vh) rotate(0deg); opacity: 0.4; }
-            8% { transform: translateX(80vw) translateY(10vh) rotate(25deg); opacity: 0.8; }
-            16% { transform: translateX(30vw) translateY(80vh) rotate(-15deg); opacity: 0.7; }
-            24% { transform: translateX(90vw) translateY(40vh) rotate(35deg); opacity: 0.8; }
-            32% { transform: translateX(10vw) translateY(20vh) rotate(-25deg); opacity: 0.7; }
-            40% { transform: translateX(85vw) translateY(70vh) rotate(20deg); opacity: 0.8; }
-            48% { transform: translateX(40vw) translateY(5vh) rotate(-35deg); opacity: 0.7; }
-            56% { transform: translateX(75vw) translateY(85vh) rotate(15deg); opacity: 0.8; }
-            64% { transform: translateX(20vw) translateY(50vh) rotate(-20deg); opacity: 0.7; }
-            72% { transform: translateX(88vw) translateY(30vh) rotate(30deg); opacity: 0.8; }
-            80% { transform: translateX(35vw) translateY(75vh) rotate(-30deg); opacity: 0.7; }
-            88% { transform: translateX(82vw) translateY(15vh) rotate(25deg); opacity: 0.8; }
+            7% { transform: translateX(75vw) translateY(15vh) rotate(20deg); opacity: 0.8; }
+            14% { transform: translateX(25vw) translateY(70vh) rotate(-20deg); opacity: 0.7; }
+            21% { transform: translateX(85vw) translateY(35vh) rotate(30deg); opacity: 0.8; }
+            28% { transform: translateX(5vw) translateY(25vh) rotate(-30deg); opacity: 0.7; }
+            35% { transform: translateX(80vw) translateY(75vh) rotate(15deg); opacity: 0.8; }
+            42% { transform: translateX(35vw) translateY(10vh) rotate(-25deg); opacity: 0.7; }
+            49% { transform: translateX(70vw) translateY(80vh) rotate(25deg); opacity: 0.8; }
+            56% { transform: translateX(15vw) translateY(45vh) rotate(-15deg); opacity: 0.7; }
+            63% { transform: translateX(80vw) translateY(20vh) rotate(35deg); opacity: 0.8; }
+            70% { transform: translateX(30vw) translateY(70vh) rotate(-35deg); opacity: 0.7; }
+            77% { transform: translateX(75vw) translateY(10vh) rotate(20deg); opacity: 0.8; }
+            85% { transform: translateX(10vw) translateY(60vh) rotate(-25deg); opacity: 0.7; }
             100% { transform: translateX(-20vw) translateY(-20vh) rotate(0deg); opacity: 0.4; }
         }
 
@@ -142,8 +143,8 @@
 
         .logo-frame {
             position: relative;
-            width: clamp(380px, 85vw, 580px);
-            height: clamp(380px, 85vw, 580px);
+            width: clamp(450px, 95vw, 700px);
+            height: clamp(450px, 95vw, 700px);
             background: url('images/descarga.png') center/contain no-repeat;
             display: flex;
             align-items: center;
@@ -702,7 +703,7 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" preload="auto" autoplay>
+    <audio id="bgMusic" preload="auto">
         <source src="audio/tercer-cielo.mp3" type="audio/mpeg">
     </audio>
 
@@ -890,14 +891,18 @@
 
         bgMusic.volume = 0.3;
 
-        bgMusic.play()
-            .then(() => {
-                isPlayingMusic = true;
-                musicControl.classList.add('playing');
-            })
-            .catch(err => {
-                console.log('⚠️ Autoplay bloqueado');
-            });
+        // Reproducir música automáticamente al cargar la página
+        window.addEventListener('load', () => {
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlayingMusic = true;
+                    musicControl.classList.add('playing');
+                }).catch(error => {
+                    console.log('⚠️ Autoplay bloqueado por navegador');
+                });
+            }
+        });
 
         musicControl.addEventListener('click', () => {
             if (isPlayingMusic) {
@@ -941,6 +946,8 @@
             'images/sticker9.png'
         ];
 
+        const floatingStickers = [];
+
         function createFloatingSticker() {
             const element = document.createElement('div');
             element.className = 'animated-element sticker-anim';
@@ -949,16 +956,35 @@
             img.className = 'sticker-img';
             img.alt = 'Sticker';
             element.appendChild(img);
-            element.style.left = Math.random() * window.innerWidth + 'px';
-            element.style.top = Math.random() * window.innerHeight + 'px';
+            
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            let vx = (Math.random() - 0.5) * 0.5;
+            let vy = (Math.random() - 0.5) * 0.5;
+            
+            element.style.left = x + 'px';
+            element.style.top = y + 'px';
             element.style.animationDelay = Math.random() * 5 + 's';
-            element.style.animationDuration = (35 + Math.random() * 10) + 's';
+            element.style.animationDuration = (65 + Math.random() * 15) + 's';
+            
             document.body.appendChild(element);
             
-            setTimeout(() => element.remove(), 50000);
+            floatingStickers.push({
+                element: element,
+                x: x,
+                y: y,
+                vx: vx,
+                vy: vy,
+                size: 60
+            });
+            
+            setTimeout(() => {
+                element.remove();
+                floatingStickers.splice(floatingStickers.indexOf(floatingStickers.find(s => s.element === element)), 1);
+            }, 80000);
         }
 
-        setInterval(createFloatingSticker, 3000);
+        setInterval(createFloatingSticker, 4000);
 
         function createShootingStar() {
             const star = document.createElement('div');
