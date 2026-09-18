@@ -43,13 +43,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 1px, transparent 1px),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 1px, transparent 1px),
-                radial-gradient(circle at 40% 40%, rgba(212,175,55,0.05) 2px, transparent 2px);
-            background-size: 80px 80px, 100px 100px, 150px 150px;
-            pointer-events: none;
+            background: url('images/castillo-fondo.png') center/cover no-repeat fixed;
+            background-attachment: fixed;
             z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(155,89,182,0.7) 0%, rgba(215,189,226,0.7) 25%, rgba(232,213,242,0.7) 50%, rgba(215,189,226,0.7) 75%, rgba(155,89,182,0.7) 100%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         audio { display: none; }
@@ -63,7 +72,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
         }
 
         .star {
@@ -84,27 +93,29 @@
         .animated-element {
             position: fixed;
             pointer-events: none;
-            z-index: 2;
-            font-size: 40px;
-            opacity: 0.8;
+            z-index: 3;
+            font-size: 60px;
+            opacity: 0.7;
         }
 
-        .bounce-anim {
-            animation: bounce-around 25s infinite ease-in-out;
+        .sticker-anim {
+            animation: sticker-float 40s infinite ease-in-out;
         }
 
-        @keyframes bounce-around {
-            0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.3; }
-            10% { transform: translateX(80vw) translateY(20vh) rotate(10deg); opacity: 0.8; }
-            20% { transform: translateX(60vw) translateY(70vh) rotate(-5deg); opacity: 0.6; }
-            30% { transform: translateX(10vw) translateY(80vh) rotate(15deg); opacity: 0.8; }
-            40% { transform: translateX(90vw) translateY(40vh) rotate(-10deg); opacity: 0.7; }
-            50% { transform: translateX(30vw) translateY(10vh) rotate(8deg); opacity: 0.8; }
-            60% { transform: translateX(85vw) translateY(60vh) rotate(-8deg); opacity: 0.7; }
-            70% { transform: translateX(15vw) translateY(30vh) rotate(12deg); opacity: 0.8; }
-            80% { transform: translateX(75vw) translateY(85vh) rotate(-12deg); opacity: 0.6; }
-            90% { transform: translateX(40vw) translateY(20vh) rotate(6deg); opacity: 0.8; }
-            100% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.3; }
+        @keyframes sticker-float {
+            0% { transform: translateX(-20vw) translateY(-20vh) rotate(0deg); opacity: 0.4; }
+            8% { transform: translateX(80vw) translateY(10vh) rotate(25deg); opacity: 0.8; }
+            16% { transform: translateX(30vw) translateY(80vh) rotate(-15deg); opacity: 0.7; }
+            24% { transform: translateX(90vw) translateY(40vh) rotate(35deg); opacity: 0.8; }
+            32% { transform: translateX(10vw) translateY(20vh) rotate(-25deg); opacity: 0.7; }
+            40% { transform: translateX(85vw) translateY(70vh) rotate(20deg); opacity: 0.8; }
+            48% { transform: translateX(40vw) translateY(5vh) rotate(-35deg); opacity: 0.7; }
+            56% { transform: translateX(75vw) translateY(85vh) rotate(15deg); opacity: 0.8; }
+            64% { transform: translateX(20vw) translateY(50vh) rotate(-20deg); opacity: 0.7; }
+            72% { transform: translateX(88vw) translateY(30vh) rotate(30deg); opacity: 0.8; }
+            80% { transform: translateX(35vw) translateY(75vh) rotate(-30deg); opacity: 0.7; }
+            88% { transform: translateX(82vw) translateY(15vh) rotate(25deg); opacity: 0.8; }
+            100% { transform: translateX(-20vw) translateY(-20vh) rotate(0deg); opacity: 0.4; }
         }
 
         .portada {
@@ -131,8 +142,8 @@
 
         .logo-frame {
             position: relative;
-            width: clamp(350px, 90vw, 600px);
-            height: clamp(350px, 90vw, 600px);
+            width: clamp(450px, 95vw, 700px);
+            height: clamp(450px, 95vw, 700px);
             background: url('images/descarga.png') center/contain no-repeat;
             display: flex;
             align-items: center;
@@ -143,8 +154,8 @@
 
         .logo-container {
             position: absolute;
-            width: 65%;
-            height: 65%;
+            width: 70%;
+            height: 70%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -240,7 +251,6 @@
 
         .foto-card:hover { transform: translateY(-10px); }
 
-        /* Modal para fotos en pantalla completa */
         .modal {
             display: none;
             position: fixed;
@@ -678,6 +688,12 @@
         @media (orientation: landscape) {
             body { aspect-ratio: 16/9; }
         }
+
+        .sticker-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
@@ -688,7 +704,6 @@
     <div class="stars-container" id="starsContainer"></div>
     <div class="control-musica" id="musicControl" title="Activar/Desactivar música">🎵</div>
 
-    <!-- Modal para fotos en pantalla completa -->
     <div class="modal" id="fotoModal">
         <div class="modal-content">
             <button class="modal-close" onclick="cerrarModal()">×</button>
@@ -718,8 +733,8 @@
                 <img src="images/melanie_foto_2_rapunzel.jpg" alt="Melanie Foto 2">
                 <div class="foto-card-frame"></div>
             </div>
-            <div class="foto-card" onclick="abrirModal('images/melanie_foto_3_rapunzel.jpg')">
-                <img src="images/melanie_foto_3_rapunzel.jpg" alt="Melanie Foto 3">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_3_rapunzel.png')">
+                <img src="images/melanie_foto_3_rapunzel.png" alt="Melanie Foto 3">
                 <div class="foto-card-frame"></div>
             </div>
             <div class="foto-card" onclick="abrirModal('images/melanie_foto_4_rapunzel.jpg')">
@@ -739,7 +754,7 @@
             <div class="info-texto">
                 <h3>📅 Fecha y Hora</h3>
                 <p><strong>Jueves, 24 de Octubre de 2026</strong></p>
-                <p>Hora a confirmar</p>
+                <p><strong>Inicio: 21:00 hs</strong></p>
 
                 <h3 style="margin-top: 25px;">📞 Contacto</h3>
                 <p><a href="tel:1141925430" style="color: var(--primary-purple); text-decoration: none;">114 1925430</a></p>
@@ -870,7 +885,6 @@
 
         bgMusic.volume = 0.3;
 
-        // Iniciar música automáticamente al cargar
         bgMusic.play()
             .then(() => {
                 isPlayingMusic = true;
@@ -892,7 +906,6 @@
             }
         });
 
-        // Modal para fotos
         function abrirModal(src) {
             const modal = document.getElementById('fotoModal');
             const modalImg = document.getElementById('modalImg');
@@ -905,30 +918,42 @@
             modal.classList.remove('active');
         }
 
-        // Cerrar modal si hace click fuera
         document.getElementById('fotoModal').addEventListener('click', (e) => {
             if (e.target.id === 'fotoModal') {
                 cerrarModal();
             }
         });
 
-        // Animaciones de elementos flotantes que rebotan
-        const emojis = ['🦋', '✨', '💜', '⭐', '🌸', '🎀'];
+        const stickerPaths = [
+            'images/sticker1.png',
+            'images/sticker2.png',
+            'images/sticker3.png',
+            'images/sticker4.png',
+            'images/sticker5.png',
+            'images/sticker6.png',
+            'images/sticker7.png',
+            'images/sticker8.png',
+            'images/sticker9.png'
+        ];
 
-        function createFloatingElement() {
+        function createFloatingSticker() {
             const element = document.createElement('div');
-            element.className = 'animated-element bounce-anim';
-            element.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            element.className = 'animated-element sticker-anim';
+            const img = document.createElement('img');
+            img.src = stickerPaths[Math.floor(Math.random() * stickerPaths.length)];
+            img.className = 'sticker-img';
+            img.alt = 'Sticker';
+            element.appendChild(img);
             element.style.left = Math.random() * window.innerWidth + 'px';
             element.style.top = Math.random() * window.innerHeight + 'px';
             element.style.animationDelay = Math.random() * 5 + 's';
-            element.style.animationDuration = (15 + Math.random() * 10) + 's';
+            element.style.animationDuration = (35 + Math.random() * 10) + 's';
             document.body.appendChild(element);
             
-            setTimeout(() => element.remove(), 30000);
+            setTimeout(() => element.remove(), 50000);
         }
 
-        setInterval(createFloatingElement, 2000);
+        setInterval(createFloatingSticker, 3000);
 
         function createShootingStar() {
             const star = document.createElement('div');
@@ -939,7 +964,7 @@
             setTimeout(() => star.remove(), 2000);
         }
 
-        setInterval(createShootingStar, 3000);
+        setInterval(createShootingStar, 5000);
 
         function guardarMensaje() {
             const nombre = document.getElementById('nombreMensaje').value.trim();
@@ -974,7 +999,6 @@
             const lista = document.getElementById('mensajesList');
             lista.innerHTML = '';
 
-            // Mostrar en orden inverso (últimos primero)
             mensajes.reverse().forEach(msg => {
                 const card = document.createElement('div');
                 card.className = 'mensaje-card';
@@ -991,7 +1015,7 @@
         function actualizarCuentaRegresiva() {
             const fechaEventoStr = '2026-10-24';
             const [año, mes, dia] = fechaEventoStr.split('-');
-            const fechaEvento = new Date(año, mes - 1, dia);
+            const fechaEvento = new Date(año, mes - 1, dia, 21, 0, 0);
             const ahora = new Date();
             const diferencia = fechaEvento - ahora;
 
