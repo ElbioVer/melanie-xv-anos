@@ -89,35 +89,22 @@
             opacity: 0.8;
         }
 
-        .butterfly-anim {
-            animation: butterfly-fly 20s infinite ease-in-out;
+        .bounce-anim {
+            animation: bounce-around 25s infinite ease-in-out;
         }
 
-        .flower-anim {
-            animation: flower-move 15s infinite ease-in-out;
-        }
-
-        .star-anim {
-            animation: star-twinkle 3s infinite ease-in-out;
-        }
-
-        @keyframes butterfly-fly {
+        @keyframes bounce-around {
             0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.3; }
-            25% { transform: translateX(100px) translateY(-100px) rotate(10deg); opacity: 0.8; }
-            50% { transform: translateX(200px) translateY(0) rotate(0deg); opacity: 0.6; }
-            75% { transform: translateX(100px) translateY(100px) rotate(-10deg); opacity: 0.8; }
+            10% { transform: translateX(80vw) translateY(20vh) rotate(10deg); opacity: 0.8; }
+            20% { transform: translateX(60vw) translateY(70vh) rotate(-5deg); opacity: 0.6; }
+            30% { transform: translateX(10vw) translateY(80vh) rotate(15deg); opacity: 0.8; }
+            40% { transform: translateX(90vw) translateY(40vh) rotate(-10deg); opacity: 0.7; }
+            50% { transform: translateX(30vw) translateY(10vh) rotate(8deg); opacity: 0.8; }
+            60% { transform: translateX(85vw) translateY(60vh) rotate(-8deg); opacity: 0.7; }
+            70% { transform: translateX(15vw) translateY(30vh) rotate(12deg); opacity: 0.8; }
+            80% { transform: translateX(75vw) translateY(85vh) rotate(-12deg); opacity: 0.6; }
+            90% { transform: translateX(40vw) translateY(20vh) rotate(6deg); opacity: 0.8; }
             100% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.3; }
-        }
-
-        @keyframes flower-move {
-            0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0.4; }
-            50% { transform: translateY(-100px) translateX(50px) scale(1); opacity: 0.9; }
-            100% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0.4; }
-        }
-
-        @keyframes star-twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .portada {
@@ -144,8 +131,8 @@
 
         .logo-frame {
             position: relative;
-            width: clamp(250px, 70vw, 400px);
-            height: clamp(250px, 70vw, 400px);
+            width: clamp(350px, 90vw, 600px);
+            height: clamp(350px, 90vw, 600px);
             background: url('images/descarga.png') center/contain no-repeat;
             display: flex;
             align-items: center;
@@ -156,8 +143,8 @@
 
         .logo-container {
             position: absolute;
-            width: 60%;
-            height: 60%;
+            width: 65%;
+            height: 65%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -252,6 +239,55 @@
         }
 
         .foto-card:hover { transform: translateY(-10px); }
+
+        /* Modal para fotos en pantalla completa */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+        }
 
         .info-evento {
             max-width: 1000px;
@@ -489,11 +525,24 @@
             margin-bottom: 8px;
         }
 
+        .mensaje-email {
+            color: var(--primary-purple);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
         .mensaje-texto {
             color: var(--text-dark);
             font-style: italic;
             line-height: 1.6;
             font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .mensaje-fecha {
+            color: #999;
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            margin-top: 8px;
         }
 
         .cuenta-regresiva {
@@ -632,12 +681,20 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" preload="auto">
+    <audio id="bgMusic" preload="auto" autoplay>
         <source src="audio/tercer-cielo.mp3" type="audio/mpeg">
     </audio>
 
     <div class="stars-container" id="starsContainer"></div>
     <div class="control-musica" id="musicControl" title="Activar/Desactivar música">🎵</div>
+
+    <!-- Modal para fotos en pantalla completa -->
+    <div class="modal" id="fotoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal()">×</button>
+            <img id="modalImg" src="" alt="Foto ampliada">
+        </div>
+    </div>
 
     <section class="portada" id="portada">
         <div class="portada-content">
@@ -653,23 +710,23 @@
     <section class="seccion" id="fotosSection">
         <h2 class="seccion-titulo">✨ La Quinceañera ✨</h2>
         <div class="galeria-fotos" id="galeriaFotos">
-            <div class="foto-card">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_1_rapunzel.jpg')">
                 <img src="images/melanie_foto_1_rapunzel.jpg" alt="Melanie Foto 1">
                 <div class="foto-card-frame"></div>
             </div>
-            <div class="foto-card">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_2_rapunzel.jpg')">
                 <img src="images/melanie_foto_2_rapunzel.jpg" alt="Melanie Foto 2">
                 <div class="foto-card-frame"></div>
             </div>
-            <div class="foto-card">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_3_rapunzel.jpg')">
                 <img src="images/melanie_foto_3_rapunzel.jpg" alt="Melanie Foto 3">
                 <div class="foto-card-frame"></div>
             </div>
-            <div class="foto-card">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_4_rapunzel.jpg')">
                 <img src="images/melanie_foto_4_rapunzel.jpg" alt="Melanie Foto 4">
                 <div class="foto-card-frame"></div>
             </div>
-            <div class="foto-card">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_5_rapunzel.jpg')">
                 <img src="images/melanie_foto_5_rapunzel.jpg" alt="Melanie Foto 5">
                 <div class="foto-card-frame"></div>
             </div>
@@ -691,7 +748,7 @@
                 <p><a href="https://maps.app.goo.gl/rJxeqtSAPamEYcCZ6" target="_blank" style="color: var(--primary-purple); text-decoration: none; font-weight: bold;">Ver en Google Maps →</a></p>
             </div>
             <div class="mapa-container">
-                <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.89!2d-58.5262!3d-34.7606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb74e5a5a5a5%3A0x5a5a5a5a5a5a5a5a!2sSan%20Isidro%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1695217800000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.2!2d-58.7538!3d-34.5045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb9c5a7a7a7a7%3A0x5a5a5a5a5a5a5a5a!2sJos%C3%A9%20C%20Paz%2C%20Copello%20980!5e0!3m2!1ses!2sar!4v1695217800000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
@@ -758,6 +815,10 @@
                     <input type="text" class="form-input" id="nombreMensaje" placeholder="¿Cuál es tu nombre?">
                 </div>
                 <div class="form-grupo">
+                    <label class="form-label">Tu Email</label>
+                    <input type="email" class="form-input" id="emailMensaje" placeholder="Tu correo electrónico">
+                </div>
+                <div class="form-grupo">
                     <label class="form-label">Tu Mensaje</label>
                     <textarea class="form-textarea" id="textoMensaje" placeholder="Escribe tus deseos y bendiciones para Melanie..."></textarea>
                 </div>
@@ -809,18 +870,15 @@
 
         bgMusic.volume = 0.3;
 
-        function autoplayMusic() {
-            bgMusic.play()
-                .then(() => {
-                    isPlayingMusic = true;
-                    musicControl.classList.add('playing');
-                })
-                .catch(err => {
-                    console.log('⚠️ Autoplay bloqueado');
-                });
-        }
-
-        setTimeout(autoplayMusic, 2000);
+        // Iniciar música automáticamente al cargar
+        bgMusic.play()
+            .then(() => {
+                isPlayingMusic = true;
+                musicControl.classList.add('playing');
+            })
+            .catch(err => {
+                console.log('⚠️ Autoplay bloqueado');
+            });
 
         musicControl.addEventListener('click', () => {
             if (isPlayingMusic) {
@@ -834,20 +892,40 @@
             }
         });
 
-        // Animaciones de elementos flotantes
+        // Modal para fotos
+        function abrirModal(src) {
+            const modal = document.getElementById('fotoModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = src;
+            modal.classList.add('active');
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById('fotoModal');
+            modal.classList.remove('active');
+        }
+
+        // Cerrar modal si hace click fuera
+        document.getElementById('fotoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'fotoModal') {
+                cerrarModal();
+            }
+        });
+
+        // Animaciones de elementos flotantes que rebotan
         const emojis = ['🦋', '✨', '💜', '⭐', '🌸', '🎀'];
-        const colors = ['#e4b1f9', '#d7bde2', '#c39bd3', '#af7ac5'];
 
         function createFloatingElement() {
             const element = document.createElement('div');
-            element.className = 'animated-element butterfly-anim';
+            element.className = 'animated-element bounce-anim';
             element.textContent = emojis[Math.floor(Math.random() * emojis.length)];
             element.style.left = Math.random() * window.innerWidth + 'px';
             element.style.top = Math.random() * window.innerHeight + 'px';
             element.style.animationDelay = Math.random() * 5 + 's';
+            element.style.animationDuration = (15 + Math.random() * 10) + 's';
             document.body.appendChild(element);
             
-            setTimeout(() => element.remove(), 25000);
+            setTimeout(() => element.remove(), 30000);
         }
 
         setInterval(createFloatingElement, 2000);
@@ -865,18 +943,26 @@
 
         function guardarMensaje() {
             const nombre = document.getElementById('nombreMensaje').value.trim();
+            const email = document.getElementById('emailMensaje').value.trim();
             const texto = document.getElementById('textoMensaje').value.trim();
 
-            if (!nombre || !texto) {
+            if (!nombre || !email || !texto) {
                 alert('Por favor completa todos los campos');
                 return;
             }
 
             const mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
-            mensajes.push({ nombre, texto, fecha: new Date().toLocaleDateString('es-ES') });
+            mensajes.push({ 
+                nombre, 
+                email, 
+                texto, 
+                fecha: new Date().toLocaleDateString('es-ES'),
+                hora: new Date().toLocaleTimeString('es-ES')
+            });
             localStorage.setItem('mensajes', JSON.stringify(mensajes));
 
             document.getElementById('nombreMensaje').value = '';
+            document.getElementById('emailMensaje').value = '';
             document.getElementById('textoMensaje').value = '';
 
             mostrarMensajes();
@@ -888,13 +974,15 @@
             const lista = document.getElementById('mensajesList');
             lista.innerHTML = '';
 
-            mensajes.forEach(msg => {
+            // Mostrar en orden inverso (últimos primero)
+            mensajes.reverse().forEach(msg => {
                 const card = document.createElement('div');
                 card.className = 'mensaje-card';
                 card.innerHTML = `
                     <div class="mensaje-nombre">💜 ${msg.nombre}</div>
+                    <div class="mensaje-email">📧 ${msg.email}</div>
                     <div class="mensaje-texto">"${msg.texto}"</div>
-                    <small style="color: #999;">${msg.fecha}</small>
+                    <div class="mensaje-fecha">${msg.fecha} a las ${msg.hora}</div>
                 `;
                 lista.appendChild(card);
             });
