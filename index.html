@@ -2,872 +2,1161 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>Mis XV Años - Melanie</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        :root {
+            --primary-purple: #9b59b6;
+            --dark-purple: #6c3483;
+            --light-purple: #d7bde2;
+            --gold: #d4af37;
+            --light-gold: #f4e8c1;
+            --cream: #faf8f3;
+            --text-dark: #2c1840;
+        }
+
+        html { 
+            scroll-behavior: smooth;
+            height: 100%;
         }
 
         body {
-            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #d4a5d9 100%);
-            font-family: 'Poppins', 'Arial', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #9b59b6 0%, #d7bde2 25%, #e8d5f2 50%, #d7bde2 75%, #9b59b6 100%);
+            color: var(--text-dark);
             overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: clamp(300px, 95vw, 800px);
-        }
-
-        /* Portada con nueva imagen */
-        .portada {
             position: relative;
+            min-height: 100vh;
             width: 100%;
-            aspect-ratio: 736/1288;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect fill="%239b59b6" width="100%25" height="100%25"/></svg>');
-            background-size: cover;
+            max-width: 100%;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            margin-bottom: 30px;
-            animation: slideInDown 0.8s ease-out;
         }
 
-        .portada img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .portada-overlay {
-            position: absolute;
+        body::before {
+            content: '';
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: url('images/castillo-fondo.png') center/cover no-repeat fixed;
+            background-attachment: fixed;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(155,89,182,0.7) 0%, rgba(215,189,226,0.7) 25%, rgba(232,213,242,0.7) 50%, rgba(215,189,226,0.7) 75%, rgba(155,89,182,0.7) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        audio { display: none; }
+
+        .container { 
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0;
+            animation: shooting-star 2s ease-in-out forwards;
+        }
+
+        @keyframes shooting-star {
+            0% { opacity: 1; transform: translateX(0) translateY(0); }
+            100% { opacity: 0; transform: translateX(300px) translateY(-300px); }
+        }
+
+        .animated-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 12;
+            font-size: 60px;
+            opacity: 0.7;
+        }
+
+        .sticker-anim {
+            animation: sticker-float 70s infinite linear;
+        }
+
+        @keyframes sticker-float {
+            0% { transform: translateX(-20vw) translateY(-20vh) rotate(0deg); opacity: 0.4; }
+            7% { transform: translateX(75vw) translateY(15vh) rotate(20deg); opacity: 0.8; }
+            14% { transform: translateX(25vw) translateY(70vh) rotate(-20deg); opacity: 0.7; }
+            21% { transform: translateX(85vw) translateY(35vh) rotate(30deg); opacity: 0.8; }
+            28% { transform: translateX(5vw) translateY(25vh) rotate(-30deg); opacity: 0.7; }
+            35% { transform: translateX(80vw) translateY(75vh) rotate(15deg); opacity: 0.8; }
+            42% { transform: translateX(35vw) translateY(10vh) rotate(-25deg); opacity: 0.7; }
+            49% { transform: translateX(70vw) translateY(80vh) rotate(25deg); opacity: 0.8; }
+            56% { transform: translateX(15vw) translateY(45vh) rotate(-15deg); opacity: 0.7; }
+            63% { transform: translateX(80vw) translateY(20vh) rotate(35deg); opacity: 0.8; }
+            70% { transform: translateX(30vw) translateY(70vh) rotate(-35deg); opacity: 0.7; }
+            77% { transform: translateX(75vw) translateY(10vh) rotate(20deg); opacity: 0.8; }
+            85% { transform: translateX(10vw) translateY(60vh) rotate(-25deg); opacity: 0.7; }
+            100% { transform: translateX(-20vw) translateY(-20vh) rotate(0deg); opacity: 0.4; }
+        }
+
+        .portada {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: visible;
             z-index: 10;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            background: rgba(0, 0, 0, 0);
+            padding: 40px clamp(10px, 5vw, 40px);
+            margin: 0 auto;
         }
 
-        .portada-overlay:hover {
-            background: rgba(0, 0, 0, 0.1);
+        .portada-content {
+            position: relative;
+            z-index: 11;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
         }
 
-        .gate-button {
-            padding: 15px 40px;
-            background: rgba(212, 165, 217, 0.9);
-            border: 3px solid #d4a5d9;
-            color: #5a2a5a;
-            font-size: clamp(16px, 4vw, 24px);
+        .logo-frame {
+            position: relative;
+            width: clamp(450px, 95vw, 700px);
+            height: clamp(450px, 95vw, 700px);
+            background: url('images/marco_portada_nuevo.png') center/contain no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInDown 1s ease;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            z-index: 13;
+        }
+
+        .logo-container {
+            position: absolute;
+            width: 68%;
+            height: 68%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 14;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .titulo-principal {
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
+            color: var(--gold);
+            text-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(0, 0, 0, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.7);
             font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin: 30px 0;
+            animation: fadeIn 1s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            z-index: 11;
-        }
-
-        .gate-button:hover {
-            background: rgba(212, 165, 217, 1);
-            transform: scale(1.05);
-            box-shadow: 0 12px 35px rgba(155, 89, 182, 0.4);
-        }
-
-        .gate-button:active {
-            transform: scale(0.98);
-        }
-
-        /* Secciones principales */
-        .section {
-            display: none;
-            animation: fadeIn 0.6s ease-in;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Confirmación */
-        .confirmacion {
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(218, 112, 214, 0.9));
-            padding: clamp(20px, 8vw, 40px);
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .confirmacion h2 {
-            font-size: clamp(24px, 6vw, 36px);
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .confirmacion p {
-            font-size: clamp(14px, 3.5vw, 18px);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .confirmacion-btn {
-            display: inline-block;
-            padding: 12px 35px;
-            background: #d4a5d9;
-            color: #5a2a5a;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            border: 2px solid #d4a5d9;
-            font-size: clamp(14px, 3vw, 16px);
-        }
-
-        .confirmacion-btn:hover {
-            background: white;
-            color: #8e44ad;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Lluvia de sobres */
-        .lluvia-section {
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(218, 112, 214, 0.9));
-            padding: clamp(20px, 8vw, 40px);
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .lluvia-section h2 {
-            font-size: clamp(24px, 6vw, 32px);
-            text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .bancos-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .banco-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid rgba(212, 165, 217, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .banco-card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #d4a5d9;
-            transform: translateY(-3px);
-        }
-
-        .banco-card h3 {
-            font-size: clamp(16px, 4vw, 20px);
-            margin-bottom: 8px;
-            color: #d4a5d9;
-        }
-
-        .banco-card p {
-            font-size: clamp(13px, 3vw, 15px);
-            margin: 5px 0;
-            word-break: break-all;
-        }
-
-        .copy-btn {
-            background: #d4a5d9;
-            color: #5a2a5a;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            margin-top: 8px;
-            transition: all 0.3s;
-        }
-
-        .copy-btn:hover {
-            background: white;
-            transform: scale(1.05);
-        }
-
-        .copy-btn.copied {
-            background: #a3d977;
-        }
-
-        /* Galería */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .gallery-item {
             position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            aspect-ratio: 3/4;
+            z-index: 11;
+            display: none;
         }
 
-        .gallery-item img {
+        .seccion {
+            padding: clamp(40px, 10vw, 80px) clamp(15px, 5vw, 40px);
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            margin: 20px auto;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 1200px;
+            width: 100%;
+            max-width: calc(100% - 20px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .seccion-titulo {
+            text-align: center;
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            color: var(--dark-purple);
+            margin-bottom: clamp(30px, 8vw, 50px);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .seccion-titulo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .galeria-fotos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 75vw, 300px), 1fr));
+            gap: clamp(15px, 4vw, 30px);
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .foto-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.3);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            z-index: 5;
+        }
+
+        .foto-card-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('images/Marcos_fotos.jpg') center/cover;
+            border-radius: 15px;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        .foto-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            display: block;
+            border-radius: 15px;
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
+        .foto-card:hover { transform: translateY(-10px); }
 
-        .gallery-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(155, 89, 182, 0.4);
-        }
-
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            animation: fadeIn 0.3s ease;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .modal.active {
             display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .modal-content {
-            max-width: 90vw;
+            max-width: 85vw;
             max-height: 90vh;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .modal-content img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            border-radius: 15px;
+            max-width: 85vw;
+            max-height: 90vh;
         }
 
-        .close {
+        .modal-close {
             position: absolute;
-            right: 20px;
             top: 20px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.5);
+            right: 20px;
+            background: white;
+            border: none;
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
             display: flex;
-            justify-content: center;
             align-items: center;
-            transition: all 0.3s;
+            justify-content: center;
+            color: black;
         }
 
-        .close:hover {
-            background: rgba(0, 0, 0, 0.8);
-            transform: scale(1.1);
+        .info-evento {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(15px, 5vw, 40px);
+            align-items: stretch;
         }
 
-        /* Libro de firmas */
-        .libro-section {
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(218, 112, 214, 0.9));
-            padding: clamp(20px, 8vw, 40px);
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .libro-section h2 {
-            font-size: clamp(24px, 6vw, 32px);
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .firma-form {
+        .info-texto {
+            padding: clamp(20px, 4vw, 30px);
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 5px solid var(--gold);
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            justify-content: center;
         }
 
-        .firma-form input,
-        .firma-form textarea {
-            padding: 12px;
-            border: 2px solid #d4a5d9;
-            border-radius: 8px;
-            font-family: 'Poppins', Arial;
-            font-size: clamp(14px, 3.5vw, 16px);
-            background: rgba(255, 255, 255, 0.95);
-            color: #5a2a5a;
-        }
-
-        .firma-form textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .firma-form button {
-            padding: 12px;
-            background: #d4a5d9;
-            color: #5a2a5a;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: clamp(14px, 3vw, 16px);
-            transition: all 0.3s;
-        }
-
-        .firma-form button:hover {
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .firmas-list {
-            margin-top: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .firma-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-left: 4px solid #d4a5d9;
-        }
-
-        .firma-item strong {
-            color: #d4a5d9;
-        }
-
-        /* Countdown */
-        .countdown-section {
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(218, 112, 214, 0.9));
-            padding: clamp(20px, 8vw, 40px);
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .countdown-section h2 {
-            font-size: clamp(24px, 6vw, 32px);
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .countdown-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #d4a5d9;
-        }
-
-        .countdown-item div:first-child {
-            font-size: clamp(24px, 6vw, 36px);
-            font-weight: bold;
-            color: #d4a5d9;
-        }
-
-        .countdown-item div:last-child {
-            font-size: clamp(12px, 3vw, 14px);
-            margin-top: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Ubicación */
-        .ubicacion-section {
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(218, 112, 214, 0.9));
-            padding: clamp(20px, 8vw, 40px);
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .ubicacion-section h2 {
-            font-size: clamp(24px, 6vw, 32px);
-            margin-bottom: 20px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .ubicacion-info {
+        .info-texto h3 {
+            color: var(--dark-purple);
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
             margin-bottom: 15px;
-            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .info-texto p {
+            color: var(--text-dark);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            margin-bottom: 12px;
             line-height: 1.6;
         }
 
-        .ubicacion-info strong {
-            color: #d4a5d9;
+        .mapa-container {
+            width: 100%;
+            height: clamp(300px, 50vh, 400px);
+            border-radius: 10px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
 
-        .map-container {
-            border-radius: 10px;
-            overflow: hidden;
+        #mapa {
+            width: 100%;
+            height: 100%;
+        }
+
+        .formulario-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-texto {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .form-texto p {
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            line-height: 1.6;
             margin-bottom: 15px;
         }
 
-        .map-container iframe {
-            width: 100%;
-            height: 300px;
+        .boton-formulario {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
+            color: white;
+            padding: clamp(12px, 3vw, 15px) clamp(30px, 5vw, 40px);
             border: none;
+            border-radius: 30px;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+            text-align: center;
         }
 
-        /* Control de navegación */
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .boton-formulario:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(155, 89, 182, 0.5);
+        }
+
+        .lluvia-sobres {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(155, 89, 182, 0.2) 100%);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+        }
+
+        .lluvia-titulo {
+            text-align: center;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            color: var(--dark-purple);
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .datos-bancarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 70vw, 250px), 1fr));
+            gap: clamp(15px, 3vw, 20px);
             margin-bottom: 30px;
         }
 
-        .nav-btn {
-            padding: 10px 20px;
-            background: #d4a5d9;
-            color: #5a2a5a;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
+        .dato-item {
+            background: white;
+            padding: clamp(15px, 3vw, 20px);
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dato-label {
+            color: var(--dark-purple);
             font-weight: bold;
-            font-size: clamp(12px, 3vw, 14px);
-            transition: all 0.3s;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
         }
 
-        .nav-btn:hover {
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        .dato-valor {
+            color: var(--primary-purple);
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            word-break: break-all;
+            font-weight: bold;
         }
 
-        .nav-btn.active {
-            background: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Control de música */
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-            background: #d4a5d9;
+        .boton-copiar {
+            background: var(--gold);
+            color: var(--text-dark);
             border: none;
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .boton-copiar:hover { background: #c9a227; }
+
+        .libro-firmas {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-mensaje {
+            background: white;
+            padding: clamp(20px, 5vw, 30px);
+            border-radius: 10px;
+            border: 2px solid var(--gold);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-grupo {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--dark-purple);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: clamp(0.95rem, 3vw, 1rem);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: clamp(10px, 2vw, 12px);
+            border: 1px solid var(--light-purple);
+            border-radius: 8px;
+            font-family: 'Georgia', serif;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-textarea { resize: vertical; min-height: 100px; }
+
+        .boton-enviar {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
+            color: white;
+            padding: clamp(10px, 2vw, 12px) clamp(25px, 4vw, 30px);
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(0.95rem, 3vw, 1rem);
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .boton-enviar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+
+        .mensajes-lista {
+            display: grid;
+            gap: clamp(15px, 3vw, 20px);
+            margin-top: 40px;
+        }
+
+        .mensaje-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
+            padding: clamp(15px, 3vw, 20px);
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .mensaje-nombre {
+            color: var(--dark-purple);
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            margin-bottom: 8px;
+        }
+
+        .mensaje-email {
+            color: var(--primary-purple);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .mensaje-texto {
+            color: var(--text-dark);
+            font-style: italic;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .mensaje-fecha {
+            color: #999;
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            margin-top: 8px;
+        }
+
+        .cuenta-regresiva {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.2) 0%, rgba(212, 175, 55, 0.2) 100%);
+            padding: clamp(30px, 8vw, 50px);
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            margin: 0 auto;
+        }
+
+        .cronometro {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(60px, 18vw, 120px), 1fr));
+            gap: clamp(10px, 3vw, 20px);
+            margin: clamp(30px, 8vw, 40px) auto;
+            max-width: 600px;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .tiempo-unidad {
+            background: white;
+            padding: clamp(15px, 3vw, 30px);
+            border-radius: 10px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tiempo-numero {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            color: var(--primary-purple);
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tiempo-label {
+            color: var(--text-dark);
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .pie-pagina {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+            color: white;
+            text-align: center;
+            padding: clamp(30px, 8vw, 40px) clamp(20px, 5vw, 40px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .mensaje-final {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .control-musica {
+            position: fixed;
+            bottom: clamp(20px, 5vw, 30px);
+            right: clamp(20px, 5vw, 30px);
+            z-index: 100;
+            background: white;
+            border-radius: 50%;
+            width: clamp(50px, 12vw, 60px);
+            height: clamp(50px, 12vw, 60px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.4);
+            border: 3px solid var(--gold);
+            transition: transform 0.3s ease;
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
+        }
+
+        .control-musica:hover { transform: scale(1.1); }
+        .control-musica.playing { animation: pulse 1s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: clamp(80px, 20vh, 120px);
+            right: clamp(20px, 5vw, 30px);
+            background: var(--gold);
+            color: var(--text-dark);
+            padding: clamp(12px, 3vw, 15px) clamp(20px, 4vw, 25px);
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 101;
+            animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .info-evento { 
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+            .galeria-fotos { 
+                grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 65vw, 250px), 1fr));
+                padding: 0 10px;
+            }
+            .mapa-container {
+                height: clamp(250px, 45vh, 350px);
+            }
+        }
+
+        @media (orientation: portrait) {
+            body { 
+                width: 100%;
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            .seccion { 
+                width: calc(100% - 20px);
+                margin: 15px auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (orientation: landscape) {
+            body {
+                width: 100%;
+                max-width: 100vw;
+            }
+        }
+
+        .sticker-img {
             width: 60px;
             height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-        }
-
-        .music-control:hover {
-            transform: scale(1.1);
-            background: white;
-            color: #8e44ad;
-        }
-
-        /* Elementos flotantes */
-        .floating-element {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            font-size: clamp(20px, 8vw, 60px);
-        }
-
-        /* Responsive */
-        @media (min-width: 768px) {
-            .gallery {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-height: 600px) {
-            .portada {
-                aspect-ratio: 4/3;
-                margin-bottom: 20px;
-            }
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Portada con Nueva Imagen -->
-        <div class="portada" id="portada">
-            <img src="marco_portada_nuevo.png" alt="Marco XV Melanie">
-            <div class="portada-overlay">
-                <button class="gate-button" onclick="abrirPuerta()">Abre la puerta</button>
-            </div>
-        </div>
+    <audio id="bgMusic" preload="auto">
+        <source src="audio/tercer-cielo.mp3" type="audio/mpeg">
+    </audio>
 
-        <!-- Confirmación -->
-        <div class="section active" id="confirmacion">
-            <div class="confirmacion">
-                <h2>💜 Confirma tu asistencia 💜</h2>
-                <p>¿Vas a acompañarme en mi fiesta de XV años?</p>
-                <a href="https://forms.gle/TuLinkAqui" target="_blank" class="confirmacion-btn">Confirmar Asistencia</a>
-            </div>
-        </div>
+    <div class="stars-container" id="starsContainer"></div>
+    <div class="control-musica" id="musicControl" title="Activar/Desactivar música">🎵</div>
 
-        <!-- Lluvia de Sobres -->
-        <div class="section" id="lluvia">
-            <div class="lluvia-section">
-                <h2>☔ Lluvia de Sobres ☔</h2>
-                <div class="bancos-container">
-                    <div class="banco-card">
-                        <h3>💳 Transferencia Bancaria</h3>
-                        <p><strong>CBU:</strong> 0000000000000000000000</p>
-                        <p><strong>Alias:</strong> melanieverdun</p>
-                        <button class="copy-btn" onclick="copiarAlPortapapeles('melanieverdun')">Copiar Alias</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Galería de Fotos -->
-        <div class="section" id="galeria">
-            <div class="gallery" id="gallery">
-                <!-- Las imágenes se cargarán aquí -->
-            </div>
-            <div id="photoModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="cerrarModal()">&times;</span>
-                    <img id="modalImg" src="" alt="">
-                </div>
-            </div>
-        </div>
-
-        <!-- Libro de Firmas -->
-        <div class="section" id="libro">
-            <div class="libro-section">
-                <h2>📖 Libro de Firmas 📖</h2>
-                <div class="firma-form">
-                    <input type="text" id="nombreFirma" placeholder="Tu nombre" maxlength="50">
-                    <textarea id="mensajeFirma" placeholder="Deja tu mensaje especial..."></textarea>
-                    <button onclick="agregarFirma()">Guardar Firma</button>
-                </div>
-                <div class="firmas-list" id="firmasList"></div>
-            </div>
-        </div>
-
-        <!-- Countdown -->
-        <div class="section" id="countdown">
-            <div class="countdown-section">
-                <h2>⏳ Faltan... ⏳</h2>
-                <div class="countdown" id="countdownContainer"></div>
-            </div>
-        </div>
-
-        <!-- Ubicación -->
-        <div class="section" id="ubicacion">
-            <div class="ubicacion-section">
-                <h2>📍 ¿Dónde nos vemos? 📍</h2>
-                <div class="ubicacion-info">
-                    <p><strong>Lugar:</strong> Boom eventos</p>
-                    <p><strong>Dirección:</strong> José C. Paz, Buenos Aires</p>
-                    <p><strong>Hora:</strong> 21:00 hs</p>
-                    <p><strong>Teléfono:</strong> <a href="tel:1141925430" style="color: #d4a5d9;">1141925430</a></p>
-                </div>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.5938484836455!2d-58.76150848095474!3d-34.51328155202887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc6b7c0000001%3A0x1234567890abcdef!2sJos%C3%A9%20C.%20Paz%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botones de Navegación -->
-        <div class="nav-buttons">
-            <button class="nav-btn active" onclick="mostrarSeccion('confirmacion')">Confirmación</button>
-            <button class="nav-btn" onclick="mostrarSeccion('lluvia')">Lluvia de Sobres</button>
-            <button class="nav-btn" onclick="mostrarSeccion('galeria')">Galería</button>
-            <button class="nav-btn" onclick="mostrarSeccion('libro')">Libro de Firmas</button>
-            <button class="nav-btn" onclick="mostrarSeccion('countdown')">Countdown</button>
-            <button class="nav-btn" onclick="mostrarSeccion('ubicacion')">Ubicación</button>
+    <div class="modal" id="fotoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal()">×</button>
+            <img id="modalImg" src="" alt="Foto ampliada">
         </div>
     </div>
 
-    <!-- Control de Música -->
-    <button class="music-control" id="musicBtn" onclick="toggleMusica()">🎵</button>
+    <section class="portada" id="portada">
+        <div class="portada-content">
+            <div class="logo-frame">
+                <div class="logo-container">
+                    <img src="images/LOGO.png" alt="Mis XV Años Melanie">
+                </div>
+            </div>
+            <h1 class="titulo-principal">¡Bienvenido!</h1>
+        </div>
+    </section>
 
-    <!-- Audio -->
-    <audio id="bgMusic" loop>
-        <source src="no-crezcas-mas.mp3" type="audio/mpeg">
-    </audio>
+    <section class="seccion" id="fotosSection">
+        <h2 class="seccion-titulo">✨ La Quinceañera ✨</h2>
+        <div class="galeria-fotos" id="galeriaFotos">
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_1_rapunzel.jpg')">
+                <img src="images/melanie_foto_1_rapunzel.jpg" alt="Melanie Foto 1">
+                <div class="foto-card-frame"></div>
+            </div>
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_2_rapunzel.jpg')">
+                <img src="images/melanie_foto_2_rapunzel.jpg" alt="Melanie Foto 2">
+                <div class="foto-card-frame"></div>
+            </div>
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_3_rapunzel.png')">
+                <img src="images/melanie_foto_3_rapunzel.png" alt="Melanie Foto 3">
+                <div class="foto-card-frame"></div>
+            </div>
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_4_rapunzel.jpg')">
+                <img src="images/melanie_foto_4_rapunzel.jpg" alt="Melanie Foto 4">
+                <div class="foto-card-frame"></div>
+            </div>
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_5_rapunzel.jpg')">
+                <img src="images/melanie_foto_5_rapunzel.jpg" alt="Melanie Foto 5">
+                <div class="foto-card-frame"></div>
+            </div>
+            <div class="foto-card" onclick="abrirModal('images/melanie_foto_6_rapunzel.jpg')">
+                <img src="images/melanie_foto_6_rapunzel.jpg" alt="Melanie Foto 6">
+                <div class="foto-card-frame"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion" id="infoSection">
+        <h2 class="seccion-titulo">📍 Detalles del Evento</h2>
+        <div class="info-evento">
+            <div class="info-texto">
+                <h3>📅 Fecha y Hora</h3>
+                <p><strong>Jueves, 24 de Octubre de 2026</strong></p>
+                <p><strong>Inicio: 21:00 hs</strong></p>
+
+                <h3 style="margin-top: 25px;">📞 Contacto</h3>
+                <p><a href="tel:1141925430" style="color: var(--primary-purple); text-decoration: none;">114 1925430</a></p>
+
+                <h3 style="margin-top: 25px;">🗺️ Ubicación</h3>
+                <p><a href="https://maps.app.goo.gl/rJxeqtSAPamEYcCZ6" target="_blank" style="color: var(--primary-purple); text-decoration: none; font-weight: bold;">Ver en Google Maps →</a></p>
+            </div>
+            <div class="mapa-container">
+                <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.7893!2d-58.76150848095474!3d-34.51328155202887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca3c5c5c5c5c5%3A0x5a5a5a5a5a5a5a5a!2sBoom%20eventos!5e0!3m2!1ses!2sar!4v1695217800000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion" id="formularioSection">
+        <h2 class="seccion-titulo">✉️ Confirma tu Asistencia</h2>
+        <div class="formulario-container">
+            <div class="form-texto">
+                <p>Para organizar mejor este hermoso evento, necesitamos que confirmes tu asistencia.</p>
+                <p style="color: var(--primary-purple); font-weight: bold;">Completa el siguiente formulario:</p>
+            </div>
+            <a href="https://forms.gle/7jHrJRQ9po9gSvpm7" target="_blank" class="boton-formulario">
+                📝 Confirmar Asistencia →
+            </a>
+        </div>
+    </section>
+
+    <section class="seccion" id="sobresSection">
+        <h2 class="seccion-titulo">💝 Lluvia de Sobres</h2>
+        <div class="lluvia-sobres">
+            <p style="text-align: center; color: var(--text-dark); font-size: clamp(0.95rem, 3vw, 1.1rem); margin-bottom: 30px; font-style: italic;">
+                Si deseas contribuir con un regalo, aquí están los datos bancarios:
+            </p>
+
+            <div class="datos-bancarios">
+                <div class="dato-item">
+                    <span class="dato-label">👤 Titular</span>
+                    <div class="dato-valor">MELANIE ORIANA VERDUN</div>
+                    <button class="boton-copiar" onclick="copiarAlPortapapeles('MELANIE ORIANA VERDUN')">Copiar</button>
+                </div>
+
+                <div class="dato-item">
+                    <span class="dato-label">📱 Alias</span>
+                    <div class="dato-valor">melanieverdun</div>
+                    <button class="boton-copiar" onclick="copiarAlPortapapeles('melanieverdun')">Copiar</button>
+                </div>
+
+                <div class="dato-item">
+                    <span class="dato-label">🏦 CBU</span>
+                    <div class="dato-valor">1430001713050147890013</div>
+                    <button class="boton-copiar" onclick="copiarAlPortapapeles('1430001713050147890013')">Copiar</button>
+                </div>
+
+                <div class="dato-item">
+                    <span class="dato-label">🔐 CUIL</span>
+                    <div class="dato-valor">23-51177221-4</div>
+                    <button class="boton-copiar" onclick="copiarAlPortapapeles('23-51177221-4')">Copiar</button>
+                </div>
+            </div>
+
+            <div style="background: rgba(155, 89, 182, 0.1); padding: clamp(15px, 4vw, 20px); border-radius: 10px; text-align: center; color: var(--text-dark); font-style: italic; margin-top: 20px; font-size: clamp(0.9rem, 3vw, 1rem);">
+                ✨ Cada regalo es un acto de amor y alegría que quedará en nuestro corazón para siempre. ✨
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion" id="firmasSection">
+        <h2 class="seccion-titulo">📖 Libro de Firmas</h2>
+        
+        <div class="libro-firmas">
+            <div class="form-mensaje">
+                <div class="form-grupo">
+                    <label class="form-label">Tu Nombre</label>
+                    <input type="text" class="form-input" id="nombreMensaje" placeholder="¿Cuál es tu nombre?">
+                </div>
+                <div class="form-grupo">
+                    <label class="form-label">Tu Email</label>
+                    <input type="email" class="form-input" id="emailMensaje" placeholder="Tu correo electrónico">
+                </div>
+                <div class="form-grupo">
+                    <label class="form-label">Tu Mensaje</label>
+                    <textarea class="form-textarea" id="textoMensaje" placeholder="Escribe tus deseos y bendiciones para Melanie..."></textarea>
+                </div>
+                <button class="boton-enviar" onclick="guardarMensaje()">💌 Enviar Mensaje</button>
+            </div>
+
+            <div class="mensajes-lista" id="mensajesList"></div>
+        </div>
+    </section>
+
+    <section class="seccion" id="regresivaSection">
+        <h2 class="seccion-titulo">⏰ Faltan...</h2>
+        <div class="cuenta-regresiva">
+            <div class="cronometro">
+                <div class="tiempo-unidad">
+                    <div class="tiempo-numero" id="dias">0</div>
+                    <div class="tiempo-label">Días</div>
+                </div>
+                <div class="tiempo-unidad">
+                    <div class="tiempo-numero" id="horas">0</div>
+                    <div class="tiempo-label">Horas</div>
+                </div>
+                <div class="tiempo-unidad">
+                    <div class="tiempo-numero" id="minutos">0</div>
+                    <div class="tiempo-label">Minutos</div>
+                </div>
+                <div class="tiempo-unidad">
+                    <div class="tiempo-numero" id="segundos">0</div>
+                    <div class="tiempo-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pie-pagina" id="pieSection">
+        <h2 style="margin-bottom: 20px; font-size: clamp(1.3rem, 5vw, 1.8rem);">💜 ¡Nos vemos el 24 de Octubre! 💜</h2>
+        <div class="mensaje-final">
+            <p>Con amor y gratitud, te esperamos para celebrar este hermoso día especial.</p>
+        </div>
+        <div style="padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2); margin-top: 20px; font-size: clamp(0.9rem, 2vw, 1rem);">
+            <p>Diseñado con ❤️ para Melanie • 2026</p>
+        </div>
+    </section>
 
     <script>
-        // Gestión de secciones
-        function mostrarSeccion(seccionId) {
-            const sections = document.querySelectorAll('.section');
-            const navButtons = document.querySelectorAll('.nav-btn');
-            
-            sections.forEach(s => s.classList.remove('active'));
-            navButtons.forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(seccionId).classList.add('active');
-            event.target.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        let isPlayingMusic = false;
+        let musicStarted = false;
 
-        // Abrir puerta (puerta interactiva)
-        function abrirPuerta() {
-            document.getElementById('portada').style.display = 'none';
-            mostrarSeccion('confirmacion');
-        }
+        bgMusic.volume = 0.3;
 
-        // Copiar al portapapeles
-        function copiarAlPortapapeles(texto) {
-            navigator.clipboard.writeText(texto).then(() => {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✓ Copiado';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        }
-
-        // Galería de fotos
-        function cargarGaleria() {
-            const photos = [
-                { src: 'foto1.jpg', alt: 'Melanie XV' },
-                { src: 'foto2.jpg', alt: 'Melanie XV' },
-                { src: 'foto3.jpg', alt: 'Melanie XV' },
-                { src: 'foto4.jpg', alt: 'Melanie XV' },
-                { src: 'foto5.jpg', alt: 'Melanie XV' },
-                { src: 'foto6.jpg', alt: 'Melanie XV' }
-            ];
-
-            const gallery = document.getElementById('gallery');
-            photos.forEach(photo => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.innerHTML = `<img src="${photo.src}" alt="${photo.alt}" onclick="abrirModal('${photo.src}')">`;
-                gallery.appendChild(item);
-            });
-        }
+        musicControl.addEventListener('click', () => {
+            if (isPlayingMusic) {
+                bgMusic.pause();
+                isPlayingMusic = false;
+                musicControl.classList.remove('playing');
+            } else {
+                bgMusic.play().catch(err => console.log('Música no disponible'));
+                isPlayingMusic = true;
+                musicControl.classList.add('playing');
+            }
+        });
 
         function abrirModal(src) {
-            const modal = document.getElementById('photoModal');
+            const modal = document.getElementById('fotoModal');
             const modalImg = document.getElementById('modalImg');
-            modal.classList.add('active');
             modalImg.src = src;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function cerrarModal() {
-            document.getElementById('photoModal').classList.remove('active');
+            const modal = document.getElementById('fotoModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
-        // Libro de firmas
-        let firmas = JSON.parse(localStorage.getItem('firmas')) || [];
-
-        function agregarFirma() {
-            const nombre = document.getElementById('nombreFirma').value.trim();
-            const mensaje = document.getElementById('mensajeFirma').value.trim();
-
-            if (nombre && mensaje) {
-                firmas.push({ nombre, mensaje, fecha: new Date().toLocaleDateString('es-AR') });
-                localStorage.setItem('firmas', JSON.stringify(firmas));
-                document.getElementById('nombreFirma').value = '';
-                document.getElementById('mensajeFirma').value = '';
-                actualizarFirmas();
+        document.getElementById('fotoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'fotoModal') {
+                cerrarModal();
             }
-        }
+        });
 
-        function actualizarFirmas() {
-            const list = document.getElementById('firmasList');
-            list.innerHTML = '';
-            firmas.forEach(firma => {
-                const item = document.createElement('div');
-                item.className = 'firma-item';
-                item.innerHTML = `<strong>${firma.nombre}</strong> <small>(${firma.fecha})</small><p>${firma.mensaje}</p>`;
-                list.appendChild(item);
-            });
-        }
+        const stickerPaths = [
+            'images/sticker1.png',
+            'images/sticker2.png',
+            'images/sticker3.png',
+            'images/sticker4.png',
+            'images/sticker5.png',
+            'images/sticker6.png',
+            'images/sticker7.png',
+            'images/sticker8.png',
+            'images/sticker9.png'
+        ];
 
-        // Countdown
-        function actualizarCountdown() {
-            const targetDate = new Date('2026-10-24T21:00:00').getTime();
-            const now = new Date().getTime();
-            const difference = targetDate - now;
+        const floatingStickers = [];
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((difference / 1000 / 60) % 60);
-            const seconds = Math.floor((difference / 1000) % 60);
-
-            const countdownContainer = document.getElementById('countdownContainer');
-            countdownContainer.innerHTML = `
-                <div class="countdown-item">
-                    <div>${days}</div>
-                    <div>Días</div>
-                </div>
-                <div class="countdown-item">
-                    <div>${hours}</div>
-                    <div>Horas</div>
-                </div>
-                <div class="countdown-item">
-                    <div>${minutes}</div>
-                    <div>Minutos</div>
-                </div>
-                <div class="countdown-item">
-                    <div>${seconds}</div>
-                    <div>Segundos</div>
-                </div>
-            `;
-        }
-
-        // Música
-        const bgMusic = document.getElementById('bgMusic');
-        let isPlaying = false;
-
-        function toggleMusica() {
-            if (isPlaying) {
-                bgMusic.pause();
-                document.getElementById('musicBtn').textContent = '🔇';
-            } else {
-                bgMusic.volume = 0.3;
-                bgMusic.play();
-                document.getElementById('musicBtn').textContent = '🎵';
-            }
-            isPlaying = !isPlaying;
-        }
-
-        // Elementos flotantes (animaciones)
-        const stickers = ['🦋', '⭐', '🌸', '👑', '🌺'];
-
-        function crearElementoFlotante() {
-            const element = document.createElement('div');
-            element.className = 'floating-element';
-            element.textContent = stickers[Math.floor(Math.random() * stickers.length)];
-            element.style.left = Math.random() * 100 + '%';
-            element.style.top = -50 + 'px';
-            document.body.appendChild(element);
-
-            let posY = -50;
-            const speed = Math.random() * 2 + 1;
-
-            const animate = setInterval(() => {
-                posY += speed;
-                element.style.top = posY + 'px';
-
-                if (posY > window.innerHeight) {
-                    clearInterval(animate);
-                    element.remove();
+        function createFloatingSticker() {
+            // Iniciar música cuando se crea el primer sticker
+            if (!musicStarted) {
+                musicStarted = true;
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isPlayingMusic = true;
+                        musicControl.classList.add('playing');
+                    }).catch(error => {
+                        console.log('⚠️ Autoplay bloqueado por navegador');
+                    });
                 }
-            }, 30);
+            }
+
+            const element = document.createElement('div');
+            element.className = 'animated-element sticker-anim';
+            const img = document.createElement('img');
+            img.src = stickerPaths[Math.floor(Math.random() * stickerPaths.length)];
+            img.className = 'sticker-img';
+            img.alt = 'Sticker';
+            element.appendChild(img);
+            
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            let vx = (Math.random() - 0.5) * 0.5;
+            let vy = (Math.random() - 0.5) * 0.5;
+            
+            element.style.left = x + 'px';
+            element.style.top = y + 'px';
+            element.style.animationDelay = Math.random() * 5 + 's';
+            element.style.animationDuration = (65 + Math.random() * 15) + 's';
+            
+            document.body.appendChild(element);
+            
+            floatingStickers.push({
+                element: element,
+                x: x,
+                y: y,
+                vx: vx,
+                vy: vy,
+                size: 60
+            });
+            
+            setTimeout(() => {
+                element.remove();
+                floatingStickers.splice(floatingStickers.indexOf(floatingStickers.find(s => s.element === element)), 1);
+            }, 80000);
         }
 
-        // Inicialización
-        window.onload = function() {
-            cargarGaleria();
-            actualizarCountdown();
-            actualizarFirmas();
+        setInterval(createFloatingSticker, 4000);
 
-            // Crear elementos flotantes cada 500ms
-            setInterval(crearElementoFlotante, 500);
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            star.style.top = Math.random() * window.innerHeight + 'px';
+            document.getElementById('starsContainer').appendChild(star);
+            setTimeout(() => star.remove(), 2000);
+        }
 
-            // Actualizar countdown cada segundo
-            setInterval(actualizarCountdown, 1000);
+        setInterval(createShootingStar, 5000);
 
-            // Cerrar modal al hacer click fuera
-            document.getElementById('photoModal').addEventListener('click', function(e) {
-                if (e.target === this) cerrarModal();
+        function guardarMensaje() {
+            const nombre = document.getElementById('nombreMensaje').value.trim();
+            const email = document.getElementById('emailMensaje').value.trim();
+            const texto = document.getElementById('textoMensaje').value.trim();
+
+            if (!nombre || !email || !texto) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            const mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
+            mensajes.push({ 
+                nombre, 
+                email, 
+                texto, 
+                fecha: new Date().toLocaleDateString('es-ES'),
+                hora: new Date().toLocaleTimeString('es-ES')
             });
-        };
+            localStorage.setItem('mensajes', JSON.stringify(mensajes));
+
+            document.getElementById('nombreMensaje').value = '';
+            document.getElementById('emailMensaje').value = '';
+            document.getElementById('textoMensaje').value = '';
+
+            mostrarMensajes();
+            mostrarToast('💌 ¡Mensaje guardado!');
+        }
+
+        function mostrarMensajes() {
+            const mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
+            const lista = document.getElementById('mensajesList');
+            lista.innerHTML = '';
+
+            mensajes.reverse().forEach(msg => {
+                const card = document.createElement('div');
+                card.className = 'mensaje-card';
+                card.innerHTML = `
+                    <div class="mensaje-nombre">💜 ${msg.nombre}</div>
+                    <div class="mensaje-email">📧 ${msg.email}</div>
+                    <div class="mensaje-texto">"${msg.texto}"</div>
+                    <div class="mensaje-fecha">${msg.fecha} a las ${msg.hora}</div>
+                `;
+                lista.appendChild(card);
+            });
+        }
+
+        function actualizarCuentaRegresiva() {
+            const fechaEventoStr = '2026-10-24';
+            const [año, mes, dia] = fechaEventoStr.split('-');
+            const fechaEvento = new Date(año, mes - 1, dia, 21, 0, 0);
+            const ahora = new Date();
+            const diferencia = fechaEvento - ahora;
+
+            if (diferencia <= 0) {
+                document.getElementById('dias').textContent = '¡HOY!';
+                document.getElementById('horas').textContent = '';
+                document.getElementById('minutos').textContent = '';
+                document.getElementById('segundos').textContent = '';
+                return;
+            }
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById('dias').textContent = dias;
+            document.getElementById('horas').textContent = String(horas).padStart(2, '0');
+            document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+            document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
+        }
+
+        function copiarAlPortapapeles(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarToast('✅ ¡Copiado!');
+            });
+        }
+
+        function mostrarToast(mensaje) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = mensaje;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        actualizarCuentaRegresiva();
+        setInterval(actualizarCuentaRegresiva, 1000);
+        mostrarMensajes();
     </script>
 </body>
 </html>
