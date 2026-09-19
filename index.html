@@ -163,15 +163,18 @@
 
         .logo-frame {
             position: relative;
-            width: clamp(450px, 95vw, 700px);
-            height: clamp(450px, 95vw, 700px);
-            background: url('images/marco_portada_nuevo.png') center/contain no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: clamp(350px, 90vw, 600px);
+            height: auto;
             animation: fadeInDown 1s ease;
             filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
             z-index: 13;
+        }
+
+        .logo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
         }
 
         .logo-container {
@@ -340,6 +343,135 @@
             align-items: center;
             justify-content: center;
             color: black;
+        }
+
+        /* Estilos para Modal de Administración de Fotos */
+        .admin-modal {
+            background: white;
+            padding: clamp(30px, 8vw, 50px);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .admin-modal h2 {
+            color: var(--dark-purple);
+            margin-bottom: 25px;
+            width: 100%;
+            text-align: center;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+        }
+
+        .foto-inputs {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            color: var(--dark-purple);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .input-group input {
+            padding: 10px 15px;
+            border: 2px solid var(--light-purple);
+            border-radius: 8px;
+            font-size: clamp(0.85rem, 3vw, 0.95rem);
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            background: #f9f9f9;
+            box-shadow: 0 0 8px rgba(155, 89, 182, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            margin-top: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(155, 89, 182, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Botón Flotante de Administración */
+        .admin-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: white;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 150;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(155, 89, 182, 0.4);
+        }
+
+        .admin-btn:active {
+            transform: scale(0.95);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: var(--primary-purple);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 250;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .info-evento {
@@ -766,7 +898,7 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" preload="auto">
+    <audio id="bgMusic" preload="auto" autoplay muted loop>
         <source src="audio/tercer-cielo.mp3" type="audio/mpeg">
     </audio>
 
@@ -780,12 +912,50 @@
         </div>
     </div>
 
+    <!-- Modal de Administración de Fotos -->
+    <div class="modal" id="adminPhotosModal">
+        <div class="modal-content admin-modal">
+            <button class="modal-close" id="closeAdminModal">×</button>
+            <h2>📷 Cambiar Fotos de la Quinceañera</h2>
+            <form id="fotosForm">
+                <div class="foto-inputs">
+                    <div class="input-group">
+                        <label for="foto1Input">Foto 1:</label>
+                        <input type="text" id="foto1Input" placeholder="ej: images/foto1.jpg">
+                    </div>
+                    <div class="input-group">
+                        <label for="foto2Input">Foto 2:</label>
+                        <input type="text" id="foto2Input" placeholder="ej: images/foto2.jpg">
+                    </div>
+                    <div class="input-group">
+                        <label for="foto3Input">Foto 3:</label>
+                        <input type="text" id="foto3Input" placeholder="ej: images/foto3.jpg">
+                    </div>
+                    <div class="input-group">
+                        <label for="foto4Input">Foto 4:</label>
+                        <input type="text" id="foto4Input" placeholder="ej: images/foto4.jpg">
+                    </div>
+                    <div class="input-group">
+                        <label for="foto5Input">Foto 5:</label>
+                        <input type="text" id="foto5Input" placeholder="ej: images/foto5.jpg">
+                    </div>
+                    <div class="input-group">
+                        <label for="foto6Input">Foto 6:</label>
+                        <input type="text" id="foto6Input" placeholder="ej: images/foto6.jpg">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">💾 Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Botón de Administración (solo visible con URL secreta) -->
+    <!-- <button id="adminPhotosBtn" class="admin-btn" title="Cambiar fotos">⚙️</button> -->
+
     <section class="portada" id="portada">
         <div class="portada-content">
             <div class="logo-frame">
-                <div class="logo-container">
-                    <img src="images/LOGO.png" alt="Mis XV Años Melanie">
-                </div>
+                <img src="images/MARCO_INICIO.jpg" alt="Mis XV Años Melanie">
             </div>
             <h1 class="titulo-principal">¡Bienvenido!</h1>
         </div>
@@ -826,7 +996,7 @@
         <div class="info-evento">
             <div class="info-texto">
                 <h3>📅 Fecha y Hora</h3>
-                <p><strong>Jueves, 24 de Octubre de 2026</strong></p>
+                <p><strong>Sábado, 24 de Octubre de 2026</strong></p>
                 <p><strong>Inicio: 21:00 hs</strong></p>
 
                 <h3 style="margin-top: 25px;">📞 Contacto</h3>
@@ -1157,6 +1327,148 @@
         actualizarCuentaRegresiva();
         setInterval(actualizarCuentaRegresiva, 1000);
         mostrarMensajes();
+
+        // Panel de Administración de Fotos - PROTEGIDO CON URL SECRETA
+        const ADMIN_SECRET = 'melanie2026';  // Clave secreta
+        const urlParams = new URLSearchParams(window.location.search);
+        const adminKey = urlParams.get('admin');
+        const isAdmin = adminKey === ADMIN_SECRET;
+
+        // Crear botón admin solo si la clave es correcta
+        if (isAdmin) {
+            const adminBtn = document.createElement('button');
+            adminBtn.id = 'adminPhotosBtn';
+            adminBtn.className = 'admin-btn';
+            adminBtn.title = 'Panel de Administración';
+            adminBtn.textContent = '⚙️ Admin';
+            adminBtn.style.bottom = '80px';
+            document.body.appendChild(adminBtn);
+
+            // Indicador de modo admin
+            const adminIndicator = document.createElement('div');
+            adminIndicator.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #27ae60;
+                color: white;
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: bold;
+                z-index: 300;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+            adminIndicator.textContent = '🔐 MODO ADMINISTRADOR';
+            document.body.appendChild(adminIndicator);
+        }
+
+        const adminPhotosBtn = document.getElementById('adminPhotosBtn');
+        const adminPhotosModal = document.getElementById('adminPhotosModal');
+        const fotosForm = document.getElementById('fotosForm');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+
+        // Cargar fotos guardadas desde localStorage
+        function cargarFotosGuardadas() {
+            const fotosSaved = JSON.parse(localStorage.getItem('fotosQuinceanera')) || {
+                foto1: 'images/melanie_foto_1_rapunzel.jpg',
+                foto2: 'images/melanie_foto_2_rapunzel.jpg',
+                foto3: 'images/melanie_foto_3_rapunzel.png',
+                foto4: 'images/melanie_foto_4_rapunzel.jpg',
+                foto5: 'images/melanie_foto_5_rapunzel.jpg',
+                foto6: 'images/melanie_foto_6_rapunzel.jpg'
+            };
+
+            for (let i = 1; i <= 6; i++) {
+                const input = document.getElementById(`foto${i}Input`);
+                if (input) {
+                    input.value = fotosSaved[`foto${i}`];
+                }
+            }
+
+            return fotosSaved;
+        }
+
+        // Guardar y aplicar fotos
+        if (fotosForm) {
+            fotosForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const fotosSaved = {};
+                for (let i = 1; i <= 6; i++) {
+                    const input = document.getElementById(`foto${i}Input`);
+                    if (input && input.value.trim()) {
+                        fotosSaved[`foto${i}`] = input.value.trim();
+                    }
+                }
+
+                localStorage.setItem('fotosQuinceanera', JSON.stringify(fotosSaved));
+                
+                // Actualizar galería
+                actualizarGaleria(fotosSaved);
+                
+                mostrarToast('✅ Fotos actualizadas correctamente');
+                adminPhotosModal.classList.remove('active');
+            });
+        }
+
+        function actualizarGaleria(fotos) {
+            const galeriaFotos = document.getElementById('galeriaFotos');
+            galeriaFotos.innerHTML = '';
+
+            for (let i = 1; i <= 6; i++) {
+                const fotoSrc = fotos[`foto${i}`];
+                const fotoCard = document.createElement('div');
+                fotoCard.className = 'foto-card';
+                fotoCard.onclick = () => abrirModal(fotoSrc);
+                fotoCard.innerHTML = `
+                    <img src="${fotoSrc}" alt="Melanie Foto ${i}">
+                    <div class="foto-card-frame"></div>
+                `;
+                galeriaFotos.appendChild(fotoCard);
+            }
+        }
+
+        // Controlar modal (solo si es administrador)
+        if (isAdmin && adminPhotosBtn) {
+            adminPhotosBtn.addEventListener('click', () => {
+                adminPhotosModal.classList.add('active');
+                cargarFotosGuardadas();
+            });
+        }
+
+        if (closeAdminModal) {
+            closeAdminModal.addEventListener('click', () => {
+                adminPhotosModal.classList.remove('active');
+            });
+        }
+
+        if (adminPhotosModal) {
+            adminPhotosModal.addEventListener('click', (e) => {
+                if (e.target.id === 'adminPhotosModal') {
+                    adminPhotosModal.classList.remove('active');
+                }
+            });
+        }
+
+        // Inicializar galería con fotos guardadas
+        window.addEventListener('DOMContentLoaded', () => {
+            const fotosSaved = cargarFotosGuardadas();
+            actualizarGaleria(fotosSaved);
+        });
+
+        // Intenta autoplay de música cuando se carga la página
+        window.addEventListener('load', () => {
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlayingMusic = true;
+                    if (musicControl) musicControl.classList.add('playing');
+                }).catch(error => {
+                    console.log('⚠️ Autoplay bloqueado. Haz clic en el control de música para iniciar');
+                });
+            }
+        });
     </script>
 </body>
 </html>
