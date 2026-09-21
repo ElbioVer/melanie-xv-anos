@@ -6,18 +6,15 @@
     <title>Mis XV Años - Melanie</title>
     
     <!-- Meta tags para WhatsApp y redes sociales -->
-    <meta property="og:title" content="¡Mis XV Años - Melanie!" />
+    <meta property="og:title" content="¡Mis XV Años!" />
     <meta property="og:description" content="¡Te invito a celebrar mis XV años! Sábado 24 de Octubre - Boom Eventos, José C. Paz" />
-    <meta property="og:image" content="https://elbiover.github.io/melanie-xv-anos/images/sello-melanie.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:url" content="https://elbiover.github.io/melanie-xv-anos/" />
+    <meta property="og:image" content="https://ElbioVer.github.io/melanie-xv-anos/images/sello-sobre.jpg" />
+    <meta property="og:url" content="https://ElbioVer.github.io/melanie-xv-anos/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="¡Mis XV Años - Melanie!" />
     <meta name="twitter:description" content="Te invito a celebrar mis XV años el 24 de octubre" />
-    <meta name="twitter:image" content="https://elbiover.github.io/melanie-xv-anos/images/sello-melanie.jpg" />
+    <meta name="twitter:image" content="https://ElbioVer.github.io/melanie-xv-anos/images/sello-sobre.jpg" />
     
     <style>
         * {
@@ -646,109 +643,6 @@
 
         .boton-copiar:hover { background: #c9a227; }
 
-        .libro-firmas {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .form-mensaje {
-            background: white;
-            padding: clamp(20px, 5vw, 30px);
-            border-radius: 10px;
-            border: 2px solid var(--gold);
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .form-grupo {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            color: var(--dark-purple);
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: clamp(0.95rem, 3vw, 1rem);
-        }
-
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: clamp(10px, 2vw, 12px);
-            border: 1px solid var(--light-purple);
-            border-radius: 8px;
-            font-family: 'Georgia', serif;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-
-        .form-textarea { resize: vertical; min-height: 100px; }
-
-        .boton-enviar {
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
-            color: white;
-            padding: clamp(10px, 2vw, 12px) clamp(25px, 4vw, 30px);
-            border: none;
-            border-radius: 8px;
-            font-size: clamp(0.95rem, 3vw, 1rem);
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .boton-enviar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
-        }
-
-        .mensajes-lista {
-            display: grid;
-            gap: clamp(15px, 3vw, 20px);
-            margin-top: 40px;
-        }
-
-        .mensaje-card {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
-            padding: clamp(15px, 3vw, 20px);
-            border-radius: 10px;
-            border-left: 4px solid var(--gold);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .mensaje-nombre {
-            color: var(--dark-purple);
-            font-weight: bold;
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            margin-bottom: 8px;
-        }
-
-        .mensaje-email {
-            color: var(--primary-purple);
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .mensaje-texto {
-            color: var(--text-dark);
-            font-style: italic;
-            line-height: 1.6;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-        }
-
-        .mensaje-fecha {
-            color: #999;
-            font-size: clamp(0.8rem, 2vw, 0.85rem);
-            margin-top: 8px;
-        }
-
         .cuenta-regresiva {
             width: 100%;
             max-width: 800px;
@@ -1078,30 +972,6 @@
         </div>
     </section>
 
-    <section class="seccion" id="firmasSection">
-        <h2 class="seccion-titulo">📖 Libro de Firmas</h2>
-        
-        <div class="libro-firmas">
-            <div class="form-mensaje">
-                <div class="form-grupo">
-                    <label class="form-label">Tu Nombre</label>
-                    <input type="text" class="form-input" id="nombreMensaje" placeholder="¿Cuál es tu nombre?">
-                </div>
-                <div class="form-grupo">
-                    <label class="form-label">Tu Email</label>
-                    <input type="email" class="form-input" id="emailMensaje" placeholder="Tu correo electrónico">
-                </div>
-                <div class="form-grupo">
-                    <label class="form-label">Tu Mensaje</label>
-                    <textarea class="form-textarea" id="textoMensaje" placeholder="Escribe tus deseos y bendiciones para Melanie..."></textarea>
-                </div>
-                <button class="boton-enviar" onclick="guardarMensaje()">💌 Enviar Mensaje</button>
-            </div>
-
-            <div class="mensajes-lista" id="mensajesList"></div>
-        </div>
-    </section>
-
     <section class="seccion" id="regresivaSection">
         <h2 class="seccion-titulo">⏰ Faltan...</h2>
         <div class="cuenta-regresiva">
@@ -1253,52 +1123,6 @@
 
         setInterval(createShootingStar, 5000);
 
-        function guardarMensaje() {
-            const nombre = document.getElementById('nombreMensaje').value.trim();
-            const email = document.getElementById('emailMensaje').value.trim();
-            const texto = document.getElementById('textoMensaje').value.trim();
-
-            if (!nombre || !email || !texto) {
-                alert('Por favor completa todos los campos');
-                return;
-            }
-
-            const mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
-            mensajes.push({ 
-                nombre, 
-                email, 
-                texto, 
-                fecha: new Date().toLocaleDateString('es-ES'),
-                hora: new Date().toLocaleTimeString('es-ES')
-            });
-            localStorage.setItem('mensajes', JSON.stringify(mensajes));
-
-            document.getElementById('nombreMensaje').value = '';
-            document.getElementById('emailMensaje').value = '';
-            document.getElementById('textoMensaje').value = '';
-
-            mostrarMensajes();
-            mostrarToast('💌 ¡Mensaje guardado!');
-        }
-
-        function mostrarMensajes() {
-            const mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
-            const lista = document.getElementById('mensajesList');
-            lista.innerHTML = '';
-
-            mensajes.reverse().forEach(msg => {
-                const card = document.createElement('div');
-                card.className = 'mensaje-card';
-                card.innerHTML = `
-                    <div class="mensaje-nombre">💜 ${msg.nombre}</div>
-                    <div class="mensaje-email">📧 ${msg.email}</div>
-                    <div class="mensaje-texto">"${msg.texto}"</div>
-                    <div class="mensaje-fecha">${msg.fecha} a las ${msg.hora}</div>
-                `;
-                lista.appendChild(card);
-            });
-        }
-
         function actualizarCuentaRegresiva() {
             const fechaEventoStr = '2026-10-24';
             const [año, mes, dia] = fechaEventoStr.split('-');
@@ -1341,7 +1165,6 @@
 
         actualizarCuentaRegresiva();
         setInterval(actualizarCuentaRegresiva, 1000);
-        mostrarMensajes();
 
         // Panel de Administración de Fotos - PROTEGIDO CON URL SECRETA
         const ADMIN_SECRET = 'melanie2026';  // Clave secreta
